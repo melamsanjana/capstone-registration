@@ -1,59 +1,101 @@
-const form = document.getElementById('registrationForm');
-const tableBody = document.getElementById('userTableBody');
+// ----- helpers -----
+const $ = (sel) => document.querySelector(sel);
+const storageKey = "wd201-users";
 
-window.onload = () => {
-  loadUsers();
-};
+function toISODate(d) { return d.toISOString().split("T")[0]; }
 
-function calculateAge(dob) {
-  const birthDate = new Date(dob);
+function setDobBounds() {
+  const dob = $("#dob");
   const today = new Date();
-  let age = today.getFullYear() - birthDate.getFullYear();
-  const m = today.getMonth() - birthDate.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-    age--;
-  }
+  const max = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+  const min = new Date(today.getFullYear() - 55, today.getMonth(), today.getDate());
+  dob.max = toISODate(max);
+  dob.min = toISODate(min);
+}
+
+function calcAge(dateStr) {
+  const today = new Date();
+  const dob = new Date(dateStr);
+  let age = today.getFullYear() - dob.getFullYear();
+  const m = today.getMonth() - dob.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) age--;
   return age;
 }
 
-form.addEventListener('submit', function (e) {
+function showError(msg) {
+  const p = $("#msg");
+  p.textContent = msg;
+  p.hidden = !msg;
+}
+
+// ----- storage -----
+function loadUsers() {
+  try {
+    return JSON.parse(localStorage.getItem(storageKey)) || [];
+  } catch {
+    return [];
+  }
+}
+
+function saveUsers(users) {
+  localStorage.setItem(storageKey, JSON.stringify(users));
+}
+
+// ----- table render -----
+function render(users) {
+  const tbody = $("#users-tbody");
+  tbody.innerHTML = "";
+  users.forEach((u) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${u.name}</td>
+      <td>${u.email}</td>
+      <td>${u.password}</td>
+      <td>${u.dob}</td>
+      <td>${u.terms ? "true" : "false"}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// ----- form handling -----
+function onSubmit(e) {
   e.preventDefault();
+  showError("");
 
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  const dob = document.getElementById('dob').value;
-  const acceptTerms = document.getElementById('acceptTerms').checked;
+  const name = $("#name").value.trim();
+  const email = $("#email").value.trim();
+  const password = $("#password").value;
+  const dob = $("#dob").value;
+  const terms = $("#terms").checked;
 
-  const age = calculateAge(dob);
+  if (!name || !email || !password || !dob) {
+    showError("Please fill out all fields.");
+    return;
+  }
+  const age = calcAge(dob);
   if (age < 18 || age > 55) {
-    alert('Age must be between 18 and 55.');
+    showError("Date of Birth must be between ages 18 and 55.");
+    return;
+  }
+  if (!terms) {
+    showError("You must accept the terms and conditions.");
     return;
   }
 
-  const user = { name, email, password, dob, acceptTerms };
+  const users = loadUsers();
+  users.push({ name, email, password, dob, terms });
+  saveUsers(users);
+  render(users);
 
-  let users = JSON.parse(localStorage.getItem('users') || '[]');
-  users.push(user);
-  localStorage.setItem('users', JSON.stringify(users));
-
-  appendUserToTable(user);
-  form.reset();
-});
-
-function loadUsers() {
-  const users = JSON.parse(localStorage.getItem('users') || '[]');
-  users.forEach(user => appendUserToTable(user));
+  // reset form (keep bounds)
+  $("#registration-form").reset();
 }
 
-function appendUserToTable(user) {
-  const row = document.createElement('tr');
-  row.innerHTML = `
-    <td>${user.name}</td>
-    <td>${user.email}</td>
-    <td>${user.password}</td>
-    <td>${user.dob}</td>
-    <td>${user.acceptTerms}</td>
-  `;
-  tableBody.appendChild(row);
+function init() {
+  setDobBounds();
+  render(loadUsers());
+  $("#registration-form").addEventListener("submit", onSubmit);
 }
+
+document.addEventListener("DOMContentLoaded", init);
