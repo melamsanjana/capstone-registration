@@ -1,35 +1,72 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Registration Form</title>
+  <style>
+    :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    body { background:#f5f7f8; margin:0; padding:40px; display:flex; justify-content:center; }
+    .card { width: 560px; background:#fff; border-radius:18px; box-shadow:0 10px 24px rgba(0,0,0,.08); padding:28px 32px; }
+    h1 { text-align:center; margin:0 0 24px; }
+    form { display:grid; grid-template-columns:140px 1fr; gap:14px 18px; }
+    label { align-self:center; font-weight:600; }
+    input[type="text"], input[type="email"], input[type="password"], input[type="date"] {
+      width:100%; padding:14px; border:1px solid #d8e0e6; border-radius:12px; outline:none;
+    }
+    input::placeholder { color:#9aa6af; }
+    .full { grid-column:1 / -1; }
+    .terms { display:flex; align-items:center; gap:10px; grid-column:1 / -1; margin-top:4px; }
+    button[type="submit"] {
+      grid-column:1 / -1; padding:14px 18px; border:0; border-radius:12px;
+      background:#10b981; color:#fff; font-weight:700; cursor:pointer;
+    }
+    .error { grid-column:1 / -1; color:#b91c1c; font-size:.95rem; margin-top:-4px; }
+    table { width:100%; margin-top:28px; border-collapse:collapse; }
+    th, td { border:1px solid #e5e7eb; padding:10px 12px; text-align:left; }
+    th { background:#f3f4f6; }
+  </style>
 </head>
 <body>
-  <h1>Registration Form</h1>
-  <form id="registrationForm">
-    <label>Name: <input type="text" id="name" required></label><br><br>
-    <label>Email: <input type="email" id="email" required></label><br><br>
-    <label>Password: <input type="password" id="password" required></label><br><br>
-    <label>Date of Birth: <input type="date" id="dob" required></label><br><br>
-    <label><input type="checkbox" id="acceptTerms" required> Accepted terms?</label><br><br>
-    <button type="submit">Submit</button>
-  </form>
+  <main class="card">
+    <h1>Registration Form</h1>
 
-  <h2>Registered Users</h2>
-  <table border="1">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Password</th>
-        <th>Dob</th>
-        <th>Accepted terms?</th>
-      </tr>
-    </thead>
-    <tbody id="userTableBody">
-      <!-- Data will be inserted here -->
-    </tbody>
-  </table>
+    <form id="registration-form" novalidate>
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" placeholder="Enter full name" required />
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" placeholder="Enter email" required />
+
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" placeholder="Enter password" required minlength="6" />
+
+      <label for="dob">Date of Birth</label>
+      <input id="dob" name="dob" type="date" placeholder="dd/mm/yyyy" required />
+
+      <div class="terms">
+        <input id="terms" name="terms" type="checkbox" />
+        <label for="terms">Accept Terms &amp; Conditions</label>
+      </div>
+
+      <p id="msg" class="error" hidden></p>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <table id="users-table" aria-label="Registered users">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th>Dob</th>
+          <th>Accepted terms?</th>
+        </tr>
+      </thead>
+      <tbody id="users-tbody"><!-- stays empty on first visit --></tbody>
+    </table>
+  </main>
 
   <script src="index.js"></script>
 </body>
