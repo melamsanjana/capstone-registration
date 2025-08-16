@@ -1,22 +1,29 @@
+const form = document.getElementById('registrationForm');
+const tableBody = document.querySelector('#entriesTable tbody');
 
- document.getElementById('registrationForm').addEventListener('submit', function (e) {
-  e.preventDefault(); // Prevent the page from refreshing
+form.addEventListener('submit', function(event) {
+  event.preventDefault(); // prevent page reload
 
-  // Get values from form fields
+  // Get form values
   const name = document.getElementById('name').value;
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
   const dob = document.getElementById('dob').value;
-  const termsAccepted = document.getElementById('terms').checked;
+  const terms = document.getElementById('terms').checked ? "Yes" : "No";
 
-  // Output the form data to the console
-  console.log("Form Submitted:");
-  console.log("Name:", name);
-  console.log("Email:", email);
-  console.log("Password:", password);
-  console.log("Date of Birth:", dob);
-  console.log("Accepted Terms & Conditions:", termsAccepted);
+  // Create new row
+  const newRow = document.createElement('tr');
+  newRow.innerHTML = `
+    <td>${name}</td>
+    <td>${email}</td>
+    <td>${password}</td>
+    <td>${dob}</td>
+    <td>${terms}</td>
+  `;
 
-  // Optional: show an alert
-  alert("Form submitted successfully!");
+  // Add row to table
+  tableBody.appendChild(newRow);
+
+  // Reset form
+  form.reset();
 });
