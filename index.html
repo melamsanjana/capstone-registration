@@ -57,9 +57,17 @@
       background: #159b84;
     }
 
-    table {
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    .entries-container {
       width: 90%;
       max-width: 800px;
+    }
+
+    table {
+      width: 100%;
       border-collapse: collapse;
       background: white;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -102,21 +110,24 @@
     </form>
   </div>
 
-  <h2>Entries</h2>
-  <table id="entriesTable">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Password</th>
-        <th>Date of Birth</th>
-        <th>Accepted Terms?</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- entries will show here -->
-    </tbody>
-  </table>
+  <!-- Entries Section -->
+  <div class="entries-container">
+    <h2>Entries</h2>
+    <table id="entriesTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th>Date of Birth</th>
+          <th>Accepted Terms?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- new rows will appear here -->
+      </tbody>
+    </table>
+  </div>
 
   <script src="index.js"></script>
 </body>
