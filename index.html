@@ -7,111 +7,79 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f2f2f2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 30px;
+      background: #f5f5f5;
+      padding: 20px;
     }
-
-    .form-container {
+    .container {
+      max-width: 500px;
+      margin: auto;
       background: white;
-      padding: 20px 30px;
+      padding: 20px;
       border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      width: 350px;
-      margin-bottom: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-
-    label {
-      display: block;
-      margin-top: 10px;
-      font-weight: bold;
+    h2 {
+      margin-bottom: 15px;
     }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    input[type="date"] {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      background: #f9f9f9;
-    }
-
-    .submit-btn {
-      margin-top: 20px;
+    input, button {
       width: 100%;
       padding: 10px;
-      border: none;
-      border-radius: 6px;
-      background: #1abc9c;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #20c997;
       color: white;
-      cursor: pointer;
+      border: none;
       font-size: 16px;
+      cursor: pointer;
     }
-
-    .submit-btn:hover {
-      background: #159b84;
+    button:hover {
+      background: #17a589;
     }
-
-    h2 {
-      margin-bottom: 10px;
-    }
-
-    .entries-container {
-      width: 90%;
-      max-width: 800px;
-    }
-
     table {
       width: 100%;
+      margin-top: 20px;
       border-collapse: collapse;
-      background: white;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-
+    table, th, td {
+      border: 1px solid #ddd;
+    }
     th, td {
       padding: 10px;
-      border: 1px solid #ddd;
       text-align: center;
     }
-
     th {
-      background: #f4f4f4;
+      background: #f2f2f2;
     }
   </style>
 </head>
 <body>
-
-  <div class="form-container">
+  <div class="container">
     <h2>Registration Form</h2>
     <form id="registrationForm">
-      <label for="name">Name</label>
+      <label>Name</label>
       <input type="text" id="name" required>
 
-      <label for="email">Email</label>
+      <label>Email</label>
       <input type="email" id="email" required>
 
-      <label for="password">Password</label>
+      <label>Password</label>
       <input type="password" id="password" required>
 
-      <label for="dob">Date of Birth</label>
+      <label>Date of Birth</label>
       <input type="date" id="dob" required>
 
-      <div>
-        <input type="checkbox" id="terms" required>
-        <label for="terms">Accept Terms & Conditions</label>
-      </div>
+      <label>
+        <input type="checkbox" id="terms"> Accept Terms & Conditions
+      </label>
 
-      <button type="submit" class="submit-btn">Submit</button>
+      <button type="submit">Submit</button>
     </form>
   </div>
 
-  <!-- Entries Section -->
-  <div class="entries-container">
+  <div class="container">
     <h2>Entries</h2>
     <table id="entriesTable">
       <thead>
@@ -123,9 +91,7 @@
           <th>Accepted Terms?</th>
         </tr>
       </thead>
-      <tbody>
-        <!-- new rows will appear here -->
-      </tbody>
+      <tbody></tbody>
     </table>
   </div>
 
