@@ -1,75 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registration Form</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .form-container {
-      background: white;
-      padding: 30px 40px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      width: 350px;
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    input[type="date"] {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      background-color: #f0f4f8;
-    }
-
-    input[type="checkbox"] {
-      margin-top: 20px;
-    }
-
-    .submit-btn {
-      width: 100%;
-      margin-top: 20px;
-      padding: 10px;
-      background-color: #1abc9c;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    .submit-btn:hover {
-      background-color: #159b84;
-    }
-
-    .checkbox-label {
-      font-size: 14px;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -77,42 +12,41 @@
     <h2>Registration Form</h2>
     <form id="registrationForm">
       <label for="name">Name</label>
-      <input type="text" id="name" required placeholder="Enter full name" />
-
+      <input type="text" id="name" required>
+      
       <label for="email">Email</label>
-      <input type="email" id="email" required placeholder="Enter email" />
-
+      <input type="email" id="email" required>
+      
       <label for="password">Password</label>
-      <input type="password" id="password" required placeholder="Enter password" />
-
+      <input type="password" id="password" required>
+      
       <label for="dob">Date of Birth</label>
-      <input type="date" id="dob" required />
-
-      <div>
-        <input type="checkbox" id="terms" required />
-        <label class="checkbox-label" for="terms">Accept Terms & Conditions</label>
-      </div>
-
-      <button type="submit" class="submit-btn">Submit</button>
+      <input type="date" id="dob" required>
+      
+      <label>
+        <input type="checkbox" id="terms" required> Accept Terms & Conditions
+      </label>
+      
+      <button type="submit">Submit</button>
     </form>
   </div>
 
-  <script>
-    document.getElementById('registrationForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      const dob = document.getElementById('dob').value;
-      const termsAccepted = document.getElementById('terms').checked;
+  <h2>Entries</h2>
+  <table id="entriesTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Date of Birth</th>
+        <th>Accepted Terms?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Entries will appear here -->
+    </tbody>
+  </table>
 
-      console.log("Form submitted:");
-      console.log("Name:", name);
-      console.log("Email:", email);
-      console.log("Password:", password);
-      console.log("Date of Birth:", dob);
-      console.log("Accepted Terms:", termsAccepted);
-    });
-  </script>
+  <script src="index.js"></script>
 </body>
 </html>
